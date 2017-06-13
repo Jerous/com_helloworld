@@ -68,12 +68,13 @@
 			<folder>models</folder>
 			<!-- views files section -->
 			<folder>views</folder>
-			<!-- language files section -->
-			<languages folder="admin/language">
-				<language tag="en-GB">en-GB/en-GB.com_helloworld.ini</language>
-				<language tag="en-GB">en-GB/en-GB.com_helloworld.sys.ini</language>
-			</languages>
 		</files>
+
+		<!-- language files section -->
+		<languages folder="admin/language">
+			<language tag="en-GB">en-GB/en-GB.com_helloworld.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_helloworld.sys.ini</language>
+		</languages>
 	</administration>
  
 </extension>
