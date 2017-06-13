@@ -82,7 +82,7 @@ class HelloWorldModelHelloWorld extends JModelItem
 			$this->messages[$id] = $table->greeting;
 		}
  
-		return $this->message[$id];
+		return $this->messages[$id];
 	}
 }
 ?>
