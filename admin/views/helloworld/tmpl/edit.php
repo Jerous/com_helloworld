@@ -9,9 +9,12 @@
  
 // No direct access
 defined('_JEXEC') or die('Restricted access');
- 
+
+// call to tell Joomla to use its javascript form validation.
+JHtml::_('behavior.formvalidator');
+
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_helloworld&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo JRoute::_('index.php?option=com_helloworld&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
   <div class="form-horizontal">
     <fieldset class="adminform">
       <legend><?php echo JText::_('COM_HELLOWORLD_HELLOWORLD_DETAILS'); ?></legend>
