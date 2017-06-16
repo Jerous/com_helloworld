@@ -28,7 +28,8 @@ class HelloWorldViewHelloWorld extends JViewLegacy
 	{
 		// Assign data to the view
 		// $this->msg = 'Hello World';
-		$this->msg = $this->get('Msg');
+		// $this->msg = $this->get('Msg');
+		$this->item = $this->get('Item');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
