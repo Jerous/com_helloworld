@@ -23,6 +23,13 @@ class HelloWorldViewHelloWorld extends JViewLegacy
 	 * @var         form
 	 */
 	protected $form = null;
+
+	/**
+	 * View form
+	 *
+	 * @var         form
+	 */
+	protected $canDo;
  
 	/**
 	 * Display the Hello World view
@@ -39,6 +46,9 @@ class HelloWorldViewHelloWorld extends JViewLegacy
 
 		// use these javascript files
 		$this->script = $this->get('Script');
+
+		// What Access Permissions does this user have? What can (s)he do?
+		$this->canDo = HelloWorldHelper::getActions($this->item->id);
  
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
@@ -75,21 +85,51 @@ class HelloWorldViewHelloWorld extends JViewLegacy
  
 		$isNew = ($this->item->id == 0);
  
+		JToolBarHelper::title($isNew ? JText::_('COM_HELLOWORLD_MANAGER_HELLOWORLD_NEW')
+		                             : JText::_('COM_HELLOWORLD_MANAGER_HELLOWORLD_EDIT'), 'helloworld');
+
 		if ($isNew)
 		{
-			$title = JText::_('COM_HELLOWORLD_MANAGER_HELLOWORLD_NEW');
+			// For new records, check the create permission.
+			if ($this->canDo->get('core.create')) 
+			{
+				JToolBarHelper::apply('helloworld.apply', 'JTOOLBAR_APPLY');
+				JToolBarHelper::save('helloworld.save', 'JTOOLBAR_SAVE');
+				JToolBarHelper::custom('helloworld.save2new', 'save-new.png', 'save-new_f2.png',
+				                       'JTOOLBAR_SAVE_AND_NEW', false);
+			}
+			JToolBarHelper::cancel('helloworld.cancel', 'JTOOLBAR_CANCEL');
 		}
 		else
 		{
-			$title = JText::_('COM_HELLOWORLD_MANAGER_HELLOWORLD_EDIT');
+			if ($this->canDo->get('core.edit'))
+			{
+				// We can save the new record
+				JToolBarHelper::apply('helloworld.apply', 'JTOOLBAR_APPLY');
+				JToolBarHelper::save('helloworld.save', 'JTOOLBAR_SAVE');
+ 
+				// We can save this record, but check the create permission to see
+				// if we can return to make a new one.
+				if ($this->canDo->get('core.create')) 
+				{
+					JToolBarHelper::custom('helloworld.save2new', 'save-new.png', 'save-new_f2.png',
+					                       'JTOOLBAR_SAVE_AND_NEW', false);
+				}
+			}
+			if ($this->canDo->get('core.create')) 
+			{
+				JToolBarHelper::custom('helloworld.save2copy', 'save-copy.png', 'save-copy_f2.png',
+				                       'JTOOLBAR_SAVE_AS_COPY', false);
+			}
+			JToolBarHelper::cancel('helloworld.cancel', 'JTOOLBAR_CLOSE');
 		}
  
-		JToolbarHelper::title($title, 'helloworld');
-		JToolbarHelper::save('helloworld.save');
-		JToolbarHelper::cancel(
-			'helloworld.cancel',
-			$isNew ? 'JTOOLBAR_CANCEL' : 'JTOOLBAR_CLOSE'
-		);
+		// JToolbarHelper::title($title, 'helloworld');
+		// JToolbarHelper::save('helloworld.save');
+		// JToolbarHelper::cancel(
+		// 	'helloworld.cancel',
+		// 	$isNew ? 'JTOOLBAR_CANCEL' : 'JTOOLBAR_CLOSE'
+		// );
 	}
 
 	/**

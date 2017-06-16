@@ -40,6 +40,9 @@ class HelloWorldViewHelloWorlds extends JViewLegacy
 		$this->filterForm    	= $this->get('FilterForm');
 		$this->activeFilters 	= $this->get('ActiveFilters');
  
+		// What Access Permissions does this user have? What can (s)he do?
+		$this->canDo = HelloWorldHelper::getActions();
+
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
@@ -85,10 +88,28 @@ class HelloWorldViewHelloWorlds extends JViewLegacy
 
 		// second parameter for the JToolBarHelper::title function. It will be used to construct the css class for the title
 		JToolBarHelper::title($title, 'helloworld');
-		JToolBarHelper::addNew('helloworld.add');
-		JToolBarHelper::editList('helloworld.edit');
-		JToolBarHelper::deleteList('', 'helloworlds.delete');
-		JToolBarHelper::preferences('com_helloworld');
+		// JToolBarHelper::addNew('helloworld.add');
+		// JToolBarHelper::editList('helloworld.edit');
+		// JToolBarHelper::deleteList('', 'helloworlds.delete');
+		// JToolBarHelper::preferences('com_helloworld');
+		
+		if ($this->canDo->get('core.create')) 
+		{
+			JToolBarHelper::addNew('helloworld.add', 'JTOOLBAR_NEW');
+		}
+		if ($this->canDo->get('core.edit')) 
+		{
+			JToolBarHelper::editList('helloworld.edit', 'JTOOLBAR_EDIT');
+		}
+		if ($this->canDo->get('core.delete')) 
+		{
+			JToolBarHelper::deleteList('', 'helloworlds.delete', 'JTOOLBAR_DELETE');
+		}
+		if ($this->canDo->get('core.admin')) 
+		{
+			JToolBarHelper::divider();
+			JToolBarHelper::preferences('com_helloworld');
+		}
 	}
 
 	/**

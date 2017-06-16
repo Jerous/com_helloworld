@@ -14,6 +14,12 @@ defined('_JEXEC') or die('Restricted access');
 $document = JFactory::getDocument();
 $document->addStyleDeclaration('.icon-helloworld {background-image: url(../media/com_helloworld/images/Tux-16x16.png);}');
 
+// Access check: is this user allowed to access the backend of this component?
+if (!JFactory::getUser()->authorise('core.manage', 'com_helloworld')) 
+{
+	throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'));
+}
+
 // Require helper file for use com_categories
 JLoader::register('HelloWorldHelper', JPATH_COMPONENT . '/helpers/helloworld.php');
 

@@ -55,4 +55,25 @@
 			</field>
 		</fieldset>
 	</fields>
+
+  <!-- Now the ACL interface is displayed at the bottom of the Helloworld editform too (the edit.php file automatically get the fieldsets -->
+  <fieldset
+    name="accesscontrol"
+    label="COM_HELLOWORLD_FIELDSET_RULES">
+    <field
+      name="asset_id"
+      type="hidden"
+      filter="unset"
+    />
+    <field
+      name="rules"
+      type="rules"
+      label="COM_HELLOWORLD_FIELD_RULES_LABEL"
+      filter="rules"
+      validate="rules"
+      class="inputbox"
+      component="com_helloworld"
+      section="message"
+    />
+  </fieldset>
 </form>

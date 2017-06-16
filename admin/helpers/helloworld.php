@@ -56,5 +56,28 @@ class HelloWorldHelper extends JHelperContent
 			$document->setTitle(JText::_('COM_HELLOWORLD_ADMINISTRATION_CATEGORIES'));
 		}
 	}
+
+	/**
+	 * Get the actions
+	 */
+	public static function getActions($messageId = 0)
+	{	
+		$result	= new JObject;
+ 
+		if (empty($messageId)) {
+			$assetName = 'com_helloworld';
+		}
+		else {
+			$assetName = 'com_helloworld.message.'.(int) $messageId;
+		}
+ 
+		$actions = JAccess::getActions('com_helloworld', 'component');
+ 
+		foreach ($actions as $action) {
+			$result->set($action->name, JFactory::getUser()->authorise($action->name, $assetName));
+		}
+ 
+		return $result;
+	}
 }
 ?>
