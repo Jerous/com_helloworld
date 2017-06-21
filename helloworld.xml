@@ -10,10 +10,13 @@
 	<copyright>Copyright Info</copyright>
 	<license>License Info</license>
 	<!--  The version string is recorded in the components table -->
-	<version>0.0.14</version>
+	<version>0.0.15</version>
 	<!-- The description is optional and defaults to the name -->
 	<description>COM_HELLOWORLD_DESCRIPTION</description>
  
+	<!-- Runs on install/uninstall/update; New in 2.5 -->
+	<scriptfile>script.php</scriptfile>
+
 	<install> <!-- Runs on install -->
 		<sql>
 			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
@@ -81,11 +84,24 @@
 			<folder>helpers</folder>
 		</files>
 
-		<!-- language files section -->
+		<!-- languages KEYs to be used at the first install of the component -->
 		<languages folder="admin/language">
 			<language tag="en-GB">en-GB/en-GB.com_helloworld.ini</language>
 			<language tag="en-GB">en-GB/en-GB.com_helloworld.sys.ini</language>
 		</languages>
+
+		<!-- languages KEYs to be used at the first install of the component -->
+		<!-- <files folder="admin"> -->
+				 	<!-- language folder -->
+		<!-- 	<folder>language</folder> -->
+		<!-- </files> -->
+
+		<!-- <languages folder="admin"> -->
+		<!-- 	<language tag="en-GB">language/en-GB/en-GB.com_helloworld.ini</language> -->
+					<!-- com_helloworld.sys.ini no longer needed there --> 
+		<!-- </languages> -->
+
+
 	</administration>
  
 </extension>
